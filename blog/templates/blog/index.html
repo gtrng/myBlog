@@ -1,0 +1,126 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<header class="py-5 bg-light shadow-sm border-bottom mb-4">
+  <div class="container">
+    <div class="text-center my-5">
+      <h1 class="fw-bolder">Welcome to Everything Of Life Home!</h1>
+      <p class="lead mb-0">
+        Discover Your Journey: Unleashing Inspiration, Embracing Growth.
+        Your Daily Source of Wisdom and Wonder.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <!-- Side widgets-->
+    <div class="col-lg-4">
+      <!-- Search widget-->
+      <div class="position-relative custom-form-group">
+        <form method="get" action="{% url 'search' %}">
+          <input class="form-control custom-form-control shadow-sm rounded-pill border-0" type="text" name="q"
+            placeholder="Search" />
+        </form>
+        <i class="search-icon fa-solid fa-magnifying-glass"></i>
+      </div>
+      <!-- Categories widget-->
+      <div class="custom-list-group">
+        <h5 class="fw-bold mb-4">Categories</h5>
+        <ul class="list-group scroll-shadows">
+          {% for category in categories %}
+          <li class="list-group-item">
+            <a href="/category/{{ category.name }}">→ {{ category.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <!-- Sorter -->
+      <div class="btn-group">
+        <button class="btn btn-primary btn-sm dropdown-toggle sorter" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Sort by
+        </button>
+        <ul class="dropdown-menu custom-dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'sortBy_title' %}">Title</a></li>
+          <li><a class="dropdown-item" href="{% url 'sortBy_created_by' %}">Created Date</a></li>
+          <li><a class="dropdown-item" href="{% url 'sortBy_likes' %}">Likes</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Blog entries-->
+    <div class="col-lg-8">
+      {% if object_list %}
+      <div class="row">
+        {% for object in object_list %}
+        <div class="col-lg-6 main">
+          <a href="{% url 'detail_article' object.id %}" class="text-decoration-none">
+            <div class="card shadow-sm mb-4">
+              <img class="card-img-top object-fit-cover" src="{{ object.imageLink }}" alt="..." height="250" />
+              <div class="card-body">
+                <div class="small text-muted d-flex justify-content-between">
+                  <div>{{ object.date }} by {{ object.author }}</div>
+                  <div class="ml-auto text-center category-text"> # {{ object.category }}</div>
+                </div>
+                <h2 class="card-title h4">
+                  {{ object.title }}</h2>
+                <p class="card-text">
+                  {{ object.description }}
+                </p>
+                <div class="row my-3">
+                  <div class="col-12">
+                    <div class="d-flex align-items-center">
+                      {% if request.user.is_authenticated %}
+                      <form method="POST" action="{% url 'like_article' object.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-primary d-flex align-items-center likes">
+                          <ion-icon name="heart-outline"></ion-icon>
+                          <p class="mb-0 ms-1">Like</p>
+                        </button>
+                      </form>
+                      <p class="ml-auto ms-3 mt-3 likes-text">
+                        {{ object.likes.count }} Likes
+                      </p>
+                      {% else %}
+                      <button class="btn btn-outline-primary d-flex align-items-center likes" disabled>
+                        <ion-icon name="heart-outline"></ion-icon>
+                        <p class="mb-0 ms-1">Login to like</p>
+                      </button>
+                      <p class="ml-auto ms-3 mt-3 likes-text">
+                        {{ object.likes.count }} Likes
+                      </p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <span class="btn btn-primary">Read more →</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <!-- Pagination-->
+      <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center my-4">
+          {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+          <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+      {% else %}
+      <p class="text-center mt-5">No article</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

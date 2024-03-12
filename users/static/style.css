@@ -1,0 +1,45 @@
+* {
+  font-family: 'Signika' !important;
+}
+
+:root {
+  --primary-color: #F3F3F3;
+  --main-text-color: #20215B;
+  --secondary-text-color: #7E7E7E;
+  --third-text-color: #fff;
+}
+h1 {
+  color: var(--main-text-color) !important;
+  font-size: 40px;
+}
+.form-label {
+  color: var(--secondary-text-color);
+  font-weight: 400;
+}
+.submit-button {
+  background-color: var(--main-text-color) !important;
+  background-image: none;
+  color: #fff;
+}
+.form-control {
+  border-color: #CCCCCC !important;
+}
+.form-text {
+  color: var(--secondary-text-color);
+  font-weight: 300;
+}
+.ml-2 {
+  color: #D62828;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.cancel-button {
+  color: #D62828 !important;
+  margin-left: 16px;
+  font-size: 18px;
+  text-decoration: none !important;
+}
+td {
+  vertical-align: middle;
+}

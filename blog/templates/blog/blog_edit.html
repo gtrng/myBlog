@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+	<div class="container mt-3">
+		<div class="row">
+			<!-- Side widgets-->
+			<div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ user }}</h5>
+                        <div class="mt-2">
+                            <a href="{% url 'user:profile' %}" class="btn btn-outline-primary ms-1"
+                                style="background-color: #20215B;color: white;border: none;">Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                form button{
+                    background-color: #20215B;color: white;border: none;
+                    padding: 5px 10px;border-radius: 5px;
+                }
+            </style>
+			<!-- Blog entries-->
+			<div class="col-lg-8 mb-5">
+				<div class="p-2">
+					<h2 style="color: #20215B;">Edit Post</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Save Changes</button>
+                        <span style="margin-left: 10px;"><a href="{% url 'post-collection' %}">Cancel</a></span>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+{% endblock content %}

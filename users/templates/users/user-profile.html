@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+		rel="stylesheet"
+		href="https://bootswatch.com/5/simplex/bootstrap.min.css"
+    />
+    <link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"
+    />
+    <link
+		href="https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet"
+    />
+		<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'detail_post.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <title>{{title}}</title>
+  </head>
+  <body class="h-100 d-flex flex-column">
+    {% include 'blog/nav.html' %} 
+    
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ user }}</h5>
+                        <div class="mt-2">
+                            <a href="{% url 'user:post-collection' %}" class="btn btn-outline-primary ms-1"
+                                style="background-color: #20215B;color: white;border: none;">All Posts</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Blog entries-->
+            <style>
+                form .btn{
+                    background-color: #20215B;color: white;border: none;
+                }
+                form label{
+                    width: 100%;
+                }
+                form input{
+                    width: 100%;
+                }
+            </style>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-outline-primary ms-1">Update Profile</button>
+                            <a href="/" class="btn btn-outline-primary ms-1">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% include 'blog/footer.html' %}
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+      integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>
